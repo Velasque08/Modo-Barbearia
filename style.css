@@ -1,0 +1,361 @@
+/* =========================================================
+   VELASQUE / PRESENÇAPRO — identidade "barbearia de bairro"
+   Paleta: tinta quase-preta, marfim, vermelho de poste, latão
+========================================================= */
+
+:root{
+  --ink:#1c1410;
+  --ink-soft:#382a20;
+  --cream:#f3ece1;
+  --cream-deep:#e8dcc6;
+  --paper:#fbf7ef;
+  --red:#8c1f2b;
+  --red-deep:#6c141d;
+  --brass:#a6793c;
+  --line:#ddccae;
+  --line-soft:#e9e0cc;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+}
+
+h1,h2,h3{
+  font-family:'Fraunces',Georgia,serif;
+  font-optical-sizing:auto;
+  letter-spacing:-.01em;
+}
+
+button,input,select{font:inherit}
+.hidden{display:none!important}
+.app{min-height:100vh}
+
+/* ---------- topbar ---------- */
+
+.topbar{
+  padding:20px 5%;
+  background:var(--ink);
+  color:var(--paper);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  border-bottom:3px solid var(--red);
+}
+
+.topbar h1,.admin-head h2,.hero h2{margin:.2rem 0 0}
+
+.topbar > div:first-child{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.topbar > div:first-child::before{
+  content:"";
+  width:14px;
+  height:34px;
+  border-radius:7px;
+  flex:none;
+  background:repeating-linear-gradient(
+    -45deg,
+    var(--red) 0 6px,
+    var(--paper) 6px 10px,
+    var(--ink-soft) 10px 16px,
+    var(--paper) 16px 20px
+  );
+  box-shadow:0 0 0 2px var(--brass);
+}
+
+.eyebrow{
+  display:inline-block;
+  font-family:'Fraunces',Georgia,serif;
+  font-style:italic;
+  font-weight:600;
+  font-size:13px;
+  color:var(--brass);
+  letter-spacing:.01em;
+}
+
+.topbar .eyebrow{color:var(--brass)}
+
+.top-actions{display:flex;align-items:center;gap:10px}
+.status-online{font-size:13px;color:var(--cream-deep)}
+
+.topbar .ghost{
+  color:var(--paper);
+  border-color:rgba(251,247,239,.4);
+}
+
+.topbar .ghost:hover{
+  border-color:var(--paper);
+  background:rgba(251,247,239,.08);
+}
+
+/* ---------- layout base ---------- */
+
+.view{max-width:1200px;margin:0 auto;padding:32px 5% 60px}
+
+/* ---------- hero ---------- */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:46px 44px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:26px;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  top:-40%;
+  right:-14%;
+  width:260px;
+  height:220%;
+  transform:rotate(18deg);
+  background:repeating-linear-gradient(
+    var(--red) 0 34px,
+    var(--paper) 34px 46px,
+    var(--ink) 46px 80px,
+    var(--paper) 80px 92px
+  );
+  opacity:.9;
+}
+
+.hero > div:first-child{position:relative;z-index:1;max-width:62%}
+
+.hero h2{
+  font-size:clamp(32px,4.6vw,54px);
+  line-height:1.05;
+  font-weight:700;
+  color:var(--ink);
+}
+
+.hero p{color:var(--ink-soft);margin-top:10px;max-width:46ch}
+
+.hero-mark{
+  position:relative;
+  z-index:1;
+  font-size:34px;
+  width:78px;
+  height:78px;
+  flex:none;
+  border-radius:50%;
+  background:var(--red);
+  color:var(--paper);
+  display:grid;
+  place-items:center;
+  box-shadow:0 0 0 3px var(--paper),0 0 0 5px var(--red-deep);
+}
+
+/* ---------- steps / panels ---------- */
+
+.steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+
+.panel{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:24px;
+  box-shadow:5px 5px 0 rgba(28,20,16,.06);
+}
+
+.step{
+  font-family:'Fraunces',Georgia,serif;
+  font-weight:700;
+  font-size:26px;
+  color:var(--paper);
+  background:var(--red);
+  width:40px;
+  height:40px;
+  line-height:40px;
+  text-align:center;
+  border-radius:50%;
+  margin-bottom:12px;
+}
+
+.options{display:grid;gap:10px}
+
+.option{
+  border:1px solid var(--line);
+  background:var(--paper);
+  border-radius:6px;
+  padding:14px 16px;
+  text-align:left;
+  cursor:pointer;
+  transition:border-color .12s ease,background-color .12s ease;
+}
+
+.option:hover{border-color:var(--brass)}
+
+.option.selected{
+  border-color:var(--red);
+  background:#fbeceb;
+}
+
+.option b{display:block;font-family:'Fraunces',Georgia,serif;font-size:16px}
+.option span{font-size:13px;color:var(--ink-soft)}
+
+.fields{display:grid;gap:10px}
+
+input,select{
+  width:100%;
+  padding:12px 13px;
+  border:1px solid var(--line);
+  border-radius:5px;
+  background:var(--paper);
+  color:var(--ink);
+}
+
+input:focus,select:focus{outline:2px solid var(--brass);outline-offset:1px}
+
+.date{margin-bottom:12px}
+
+/* ---------- time slots: "fichas de senha" ---------- */
+
+.times{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+
+.time{
+  position:relative;
+  padding:12px 6px;
+  border:1px dashed var(--brass);
+  border-radius:3px;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:'Fraunces',Georgia,serif;
+  font-weight:600;
+  cursor:pointer;
+  transition:transform .1s ease,background-color .12s ease,color .12s ease;
+}
+
+.time::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-5px;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--cream);
+  border:1px dashed var(--brass);
+  transform:translateX(-50%);
+}
+
+.time:hover{transform:translateY(-2px)}
+
+.time.selected{
+  background:var(--red);
+  border-color:var(--red-deep);
+  border-style:solid;
+  color:var(--paper);
+}
+
+/* ---------- buttons ---------- */
+
+.primary,.secondary,.ghost{
+  border:0;
+  border-radius:5px;
+  padding:12px 18px;
+  font-weight:700;
+  cursor:pointer;
+  transition:background-color .12s ease,color .12s ease,border-color .12s ease;
+}
+
+.primary{background:var(--ink);color:var(--paper)}
+.primary:hover{background:var(--red)}
+
+.secondary{background:var(--cream-deep);color:var(--ink-soft);border:1px solid var(--line)}
+.secondary:hover{border-color:var(--brass)}
+
+.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.ghost:hover{border-color:var(--ink)}
+
+a.ghost{display:inline-block;text-decoration:none;text-align:center}
+
+.full{width:100%;margin-top:12px}
+.message{margin-top:10px;font-size:14px;color:var(--red-deep)}
+
+/* ---------- admin ---------- */
+
+.admin-head{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:20px}
+.admin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.panel label{display:grid;gap:6px;margin:10px 0;font-weight:600;font-size:13px;color:var(--ink-soft)}
+.panel label input{font-weight:400;color:var(--ink)}
+
+.agenda{margin-top:18px}
+.agenda-title{display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
+.agenda-filters,.quick-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+.appointment,.block{
+  padding:14px 4px;
+  border-bottom:1px solid var(--line-soft);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.appointment > div:last-child{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ---------- auth: carteirinha de admin ---------- */
+
+.auth-screen{
+  position:fixed;
+  inset:0;
+  background:rgba(20,14,10,.72);
+  z-index:10;
+  display:grid;
+  place-items:center;
+  padding:20px;
+}
+
+.auth-card{
+  background:var(--paper);
+  border-radius:8px;
+  padding:0 28px 28px;
+  width:min(420px,100%);
+  border:1px solid var(--line);
+  overflow:hidden;
+}
+
+.auth-card::before{
+  content:"";
+  display:block;
+  height:10px;
+  margin:0 -28px 24px;
+  background:repeating-linear-gradient(
+    -45deg,
+    var(--red) 0 10px,
+    var(--paper) 10px 16px
+  );
+}
+
+.auth-card h1{font-size:28px}
+
+/* ---------- responsive ---------- */
+
+@media(max-width:850px){
+  .steps,.admin-grid{grid-template-columns:1fr}
+  .hero{padding:30px}
+  .hero > div:first-child{max-width:100%}
+  .hero-mark,.hero::before{display:none}
+  .topbar{align-items:flex-start;flex-direction:column}
+  .times{grid-template-columns:repeat(3,1fr)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .time,.primary,.secondary,.ghost,.option{transition:none}
+}

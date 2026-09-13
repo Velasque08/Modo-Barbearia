@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PresençaPro — Agenda</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+</head><body>
+<div id="authScreen" class="auth-screen hidden"><div class="auth-card">
+<span class="eyebrow">PRESENÇAPRO</span><h1>Área da barbearia</h1><p>Entre para administrar sua agenda.</p>
+<div class="fields"><input id="authEmail" type="email" placeholder="E-mail"><input id="authPassword" type="password" placeholder="Senha"></div>
+<button class="primary full" onclick="loginAdmin()">Entrar</button>
+<div id="authMessage" class="message"></div><button class="ghost full" onclick="closeAuth()">Voltar</button>
+</div></div>
+<div class="app">
+<header class="topbar"><div><span class="eyebrow">PRESENÇAPRO</span><h1 id="brandTitle">Agendamento</h1></div>
+<div class="top-actions"><span id="connectionStatus" class="status-online">Modo demonstração</span><button class="ghost" onclick="openAdmin()">Área da barbearia</button></div></header>
+<main>
+<section id="bookingView" class="view"><div class="hero"><div><span class="eyebrow">AGENDE SEU HORÁRIO</span><h2 id="heroTitle">Seu próximo corte começa aqui.</h2><p>Escolha o serviço, o barbeiro, o dia e um horário disponível.</p></div><div class="hero-mark">✂</div></div>
+<div class="steps">
+<section class="panel"><div class="step">01</div><h3>Serviço</h3><div id="services" class="options"></div></section>
+<section class="panel"><div class="step">02</div><h3>Barbeiro</h3><div id="barbers" class="options"></div></section>
+<section class="panel"><div class="step">03</div><h3>Dia e horário</h3><input id="date" class="date" type="date"><div id="times" class="times"></div></section>
+<section class="panel"><div class="step">04</div><h3>Seus dados</h3><div class="fields"><input id="customerName" placeholder="Seu nome"><input id="customerPhone" placeholder="WhatsApp"></div><button class="primary full" onclick="book()">Confirmar agendamento</button><div id="message" class="message"></div></section>
+</div></section>
+
+<section id="adminView" class="view hidden"><div class="admin-head"><div><span class="eyebrow">PAINEL</span><h2>Agenda da barbearia</h2></div><div class="top-actions"><span id="adminUser"></span><button class="ghost" onclick="showBooking()">Voltar</button><button id="logoutBtn" class="ghost hidden" onclick="logoutAdmin()">Sair</button></div></div>
+<div class="admin-grid">
+<section class="panel"><h3>Minha barbearia</h3><label>Nome<input id="shopName"></label><label>Link público<input id="shopSlug" readonly></label><label>WhatsApp<input id="shopPhone" placeholder="5511999999999"></label><label>Abertura<input id="openTime" type="time"></label><label>Fechamento<input id="closeTime" type="time"></label><button class="primary" onclick="saveSettings()">Salvar</button><button class="secondary" onclick="copyPublicLink()">Copiar link público</button></section>
+<section class="panel"><h3>Serviços</h3><div id="serviceAdmin"></div><button class="secondary" onclick="addService()">+ Adicionar serviço</button></section>
+<section class="panel"><h3>Barbeiros</h3><div id="barberAdmin"></div><button class="secondary" onclick="addBarber()">+ Adicionar barbeiro</button></section>
+</div>
+<section class="panel agenda"><div class="agenda-title"><div><span class="eyebrow">AGENDA</span><h3>Agendamentos</h3></div><div class="agenda-filters"><label>Data<input id="agendaDate" type="date" onchange="renderAppointments()"></label><label>Barbeiro<select id="agendaBarber" onchange="renderAppointments()"><option value="">Todos</option></select></label></div></div><div id="appointments"></div></section>
+<section class="panel"><div class="agenda-title"><div><span class="eyebrow">BLOQUEIOS</span><h3>Horários bloqueados</h3></div></div><div class="quick-actions"><input id="blockDate" type="date"><input id="blockStart" type="time" value="12:00"><input id="blockEnd" type="time" value="13:00"><select id="blockBarber"><option value="">Todos</option></select><button class="secondary" onclick="blockSlot()">Bloquear</button></div><div id="blocks"></div></section>
+</section></main></div><script src="app.js"></script></body></html>
