@@ -27,6 +27,42 @@ function slugFromUrl() {
   return new URLSearchParams(location.search).get("barbearia") || "principal";
 }
 
+function shadeColor(hex, amount) {
+  const clean =
+    String(hex || "").replace("#", "");
+
+  const full =
+    clean.length === 3
+      ? clean.split("").map(c => c + c).join("")
+      : clean;
+
+  const num = parseInt(full, 16);
+
+  if (isNaN(num)) return hex;
+
+  const clamp = v => Math.max(0, Math.min(255, v));
+
+  const r = clamp((num >> 16) + amount);
+  const g = clamp(((num >> 8) & 0xff) + amount);
+  const b = clamp((num & 0xff) + amount);
+
+  return (
+    "#" +
+    (0x1000000 + r * 0x10000 + g * 0x100 + b)
+      .toString(16)
+      .slice(1)
+  );
+}
+
+function applyShopTheme(shop) {
+  const color = shop?.cor_marca || "#8c1f2b";
+  const root = document.documentElement.style;
+
+  root.setProperty("--red", color);
+  root.setProperty("--red-deep", shadeColor(color, -22));
+  root.setProperty("--red-tint", shadeColor(color, 90));
+}
+
 /* =========================================================
    BARBEARIA
 ========================================================= */
@@ -66,6 +102,8 @@ async function loadShop() {
     console.warn("Nenhuma barbearia encontrada com slug:", slug);
     return;
   }
+
+  applyShopTheme(state.shop);
 
   if ($("brandTitle")) {
     $("brandTitle").textContent =
@@ -636,6 +674,8 @@ async function showAdmin() {
     ) {
       state.shop = ownShop.data;
 
+      applyShopTheme(state.shop);
+
       if ($("brandTitle")) {
         $("brandTitle").textContent =
           state.shop.nome || "Agendamento";
@@ -688,6 +728,11 @@ async function loadAdmin() {
   if ($("shopPhone")) {
     $("shopPhone").value =
       state.shop.whatsapp || "";
+  }
+
+  if ($("shopColor")) {
+    $("shopColor").value =
+      state.shop.cor_marca || "#8c1f2b";
   }
 
   if ($("openTime")) {
@@ -813,6 +858,7 @@ async function saveSettings() {
   const data = {
     nome: $("shopName")?.value || "",
     whatsapp: $("shopPhone")?.value || "",
+    cor_marca: $("shopColor")?.value || "#8c1f2b",
     horario_abertura:
       $("openTime")?.value || "08:00",
     horario_fechamento:
@@ -822,7 +868,9 @@ async function saveSettings() {
   const r = await sb
     .from("barbearias")
     .update(data)
-    .eq("id", state.shop.id);
+    .eq("id", state.shop.id)
+    .select()
+    .single();
 
   if (r.error) {
     alert(r.error.message);
@@ -831,7 +879,14 @@ async function saveSettings() {
 
   alert("Configurações salvas.");
 
-  await loadShop();
+  state.shop = r.data;
+
+  applyShopTheme(state.shop);
+
+  if ($("brandTitle")) {
+    $("brandTitle").textContent =
+      state.shop.nome || "Agendamento";
+  }
 }
 
 /* =========================================================

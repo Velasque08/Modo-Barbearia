@@ -29,7 +29,7 @@
 
 <section id="adminView" class="view hidden"><div class="admin-head"><div><span class="eyebrow">PAINEL</span><h2>Agenda da barbearia</h2></div><div class="top-actions"><span id="adminUser"></span><button class="ghost" onclick="showBooking()">Voltar</button><button id="logoutBtn" class="ghost hidden" onclick="logoutAdmin()">Sair</button></div></div>
 <div class="admin-grid">
-<section class="panel"><h3>Minha barbearia</h3><label>Nome<input id="shopName"></label><label>Link público<input id="shopSlug" readonly></label><label>WhatsApp<input id="shopPhone" placeholder="5511999999999"></label><label>Abertura<input id="openTime" type="time"></label><label>Fechamento<input id="closeTime" type="time"></label><button class="primary" onclick="saveSettings()">Salvar</button><button class="secondary" onclick="copyPublicLink()">Copiar link público</button></section>
+<section class="panel"><h3>Minha barbearia</h3><label>Nome<input id="shopName"></label><label>Link público<input id="shopSlug" readonly></label><label>WhatsApp<input id="shopPhone" placeholder="5511999999999"></label><label>Cor da marca<input id="shopColor" type="color"></label><label>Abertura<input id="openTime" type="time"></label><label>Fechamento<input id="closeTime" type="time"></label><button class="primary" onclick="saveSettings()">Salvar</button><button class="secondary" onclick="copyPublicLink()">Copiar link público</button></section>
 <section class="panel"><h3>Serviços</h3><div id="serviceAdmin"></div><button class="secondary" onclick="addService()">+ Adicionar serviço</button></section>
 <section class="panel"><h3>Barbeiros</h3><div id="barberAdmin"></div><button class="secondary" onclick="addBarber()">+ Adicionar barbeiro</button></section>
 </div>

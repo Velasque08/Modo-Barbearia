@@ -11,6 +11,7 @@
   --paper:#fbf7ef;
   --red:#8c1f2b;
   --red-deep:#6c141d;
+  --red-tint:#fbeceb;
   --brass:#a6793c;
   --line:#ddccae;
   --line-soft:#e9e0cc;
@@ -202,7 +203,7 @@ button,input,select{font:inherit}
 
 .option.selected{
   border-color:var(--red);
-  background:#fbeceb;
+  background:var(--red-tint);
 }
 
 .option b{display:block;font-family:'Fraunces',Georgia,serif;font-size:16px}
