@@ -55,7 +55,7 @@ function shadeColor(hex, amount) {
 }
 
 function applyShopTheme(shop) {
-  const color = shop?.cor_marca || "#8c1f2b";
+  const color = shop?.cor_principal || "#8c1f2b";
   const root = document.documentElement.style;
 
   root.setProperty("--red", color);
@@ -732,7 +732,7 @@ async function loadAdmin() {
 
   if ($("shopColor")) {
     $("shopColor").value =
-      state.shop.cor_marca || "#8c1f2b";
+      state.shop.cor_principal || "#8c1f2b";
   }
 
   if ($("openTime")) {
@@ -858,7 +858,7 @@ async function saveSettings() {
   const data = {
     nome: $("shopName")?.value || "",
     whatsapp: $("shopPhone")?.value || "",
-    cor_marca: $("shopColor")?.value || "#8c1f2b",
+    cor_principal: $("shopColor")?.value || "#8c1f2b",
     horario_abertura:
       $("openTime")?.value || "08:00",
     horario_fechamento:
