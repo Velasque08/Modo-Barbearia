@@ -222,6 +222,12 @@ input,select{
 
 input:focus,select:focus{outline:2px solid var(--brass);outline-offset:1px}
 
+input[type="color"]{
+  padding:4px;
+  height:44px;
+  cursor:pointer;
+}
+
 .date{margin-bottom:12px}
 
 /* ---------- time slots: "fichas de senha" ---------- */
@@ -355,6 +361,32 @@ a.ghost{display:inline-block;text-decoration:none;text-align:center}
   .hero-mark,.hero::before{display:none}
   .topbar{align-items:flex-start;flex-direction:column}
   .times{grid-template-columns:repeat(3,1fr)}
+}
+
+@media(max-width:600px){
+  .view{padding:20px 6% 40px}
+
+  .topbar{padding:16px 6%;gap:10px}
+  .topbar h1{font-size:20px}
+  .top-actions{width:100%;justify-content:space-between}
+
+  .hero{padding:22px 18px}
+  .hero h2{font-size:26px}
+  .panel{padding:18px}
+
+  .times{grid-template-columns:repeat(2,1fr)}
+
+  input,select{font-size:16px}
+
+  .admin-head{flex-direction:column;align-items:flex-start;gap:10px}
+  .admin-grid{gap:14px}
+
+  .appointment,.block{flex-direction:column;align-items:flex-start;gap:10px}
+  .appointment > div:last-child,.quick-actions{width:100%}
+  .appointment > div:last-child button,
+  .appointment > div:last-child a{flex:1;text-align:center}
+
+  .auth-card{padding:0 22px 22px}
 }
 
 @media(prefers-reduced-motion:reduce){
