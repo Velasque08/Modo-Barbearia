@@ -3,6 +3,9 @@ const sb = supabase.createClient(
   window.SUPABASE_ANON_KEY
 );
 
+const SUPER_ADMIN_ID =
+  "83a87838-a3dd-42e1-8b72-ed7e6d2978e1";
+
 let state = {
   shop: null,
   services: [],
@@ -654,6 +657,14 @@ async function showAdmin() {
       user?.email || "";
   }
 
+  if ($("superAdminPanel")) {
+    if (user?.id === SUPER_ADMIN_ID) {
+      $("superAdminPanel").classList.remove("hidden");
+    } else {
+      $("superAdminPanel").classList.add("hidden");
+    }
+  }
+
   if (user) {
     const ownShop = await sb
       .from("barbearias")
@@ -1295,6 +1306,75 @@ async function blockSlot() {
   await renderBlocks();
 
   await loadTimes();
+}
+
+function slugify(text) {
+  return String(text || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+async function createShop() {
+  const nome =
+    $("newShopName")?.value.trim();
+
+  const slugDigitado =
+    $("newShopSlug")?.value.trim();
+
+  const cor =
+    $("newShopColor")?.value || "#8c1f2b";
+
+  const adminId =
+    $("newShopAdminId")?.value.trim();
+
+  const msg = $("newShopMessage");
+
+  if (msg) msg.textContent = "";
+
+  if (!nome || !slugDigitado || !adminId) {
+    if (msg) {
+      msg.textContent =
+        "Preencha nome, link e UID do admin.";
+    }
+
+    return;
+  }
+
+  const slug = slugify(slugDigitado);
+
+  const r = await sb
+    .from("barbearias")
+    .insert({
+      nome,
+      slug,
+      admin_user_id: adminId,
+      cor_principal: cor,
+      horario_abertura: "08:00",
+      horario_fechamento: "19:00"
+    })
+    .select()
+    .single();
+
+  if (r.error) {
+    if (msg) {
+      msg.textContent =
+        "Erro: " + r.error.message;
+    }
+
+    return;
+  }
+
+  if (msg) {
+    msg.textContent =
+      "Barbearia criada! Link: ?barbearia=" + slug;
+  }
+
+  $("newShopName").value = "";
+  $("newShopSlug").value = "";
+  $("newShopAdminId").value = "";
 }
 
 async function renderBlocks() {
