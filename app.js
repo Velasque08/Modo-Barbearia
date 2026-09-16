@@ -521,7 +521,9 @@ async function book() {
     );
 
     msg(
-      "Não foi possível concluir o agendamento. Tente novamente em instantes."
+      "Não foi possível concluir o agendamento (" +
+      clientResult.error.message +
+      ")"
     );
 
     return;
@@ -558,7 +560,9 @@ async function book() {
       );
     } else {
       msg(
-        "Não foi possível concluir o agendamento. Tente novamente em instantes."
+        "Não foi possível concluir o agendamento (" +
+        r.error.message +
+        ")"
       );
     }
 
