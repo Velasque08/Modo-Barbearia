@@ -501,7 +501,10 @@ async function book() {
     return;
   }
 
+  const newClientId = crypto.randomUUID();
+
   const clientPayload = {
+    id: newClientId,
     barbearia_id: state.shop.id,
     nome: customerName,
     telefone: customerPhone
@@ -509,9 +512,7 @@ async function book() {
 
   const clientResult = await sb
     .from("clientes")
-    .insert(clientPayload)
-    .select()
-    .single();
+    .insert(clientPayload);
 
   if (clientResult.error) {
     console.error(
@@ -520,9 +521,7 @@ async function book() {
     );
 
     msg(
-      "Não foi possível concluir o agendamento (" +
-      clientResult.error.message +
-      ")"
+      "Não foi possível concluir o agendamento. Tente novamente em instantes."
     );
 
     return;
@@ -534,7 +533,7 @@ async function book() {
     barbeiro_id: state.selectedBarber,
     data: date,
     horario: state.selectedTime,
-    cliente_id: clientResult.data.id,
+    cliente_id: newClientId,
     status: "pendente"
   };
 
@@ -559,9 +558,7 @@ async function book() {
       );
     } else {
       msg(
-        "Não foi possível concluir o agendamento (" +
-        r.error.message +
-        ")"
+        "Não foi possível concluir o agendamento. Tente novamente em instantes."
       );
     }
 
