@@ -520,7 +520,9 @@ async function book() {
     );
 
     msg(
-      "Não foi possível concluir o agendamento. Verifique as permissões do Supabase."
+      "Não foi possível concluir o agendamento (" +
+      clientResult.error.message +
+      ")"
     );
 
     return;
@@ -557,7 +559,9 @@ async function book() {
       );
     } else {
       msg(
-        "Não foi possível concluir o agendamento. Verifique as permissões do Supabase."
+        "Não foi possível concluir o agendamento (" +
+        r.error.message +
+        ")"
       );
     }
 
